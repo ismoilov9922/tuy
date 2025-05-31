@@ -1,0 +1,121 @@
+import React from "react";
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+
+const WeddingInvite = () => {
+  const [guests, setGuests] = useState([]);
+  const [name, setName] = useState("");
+  const [message, setMessage] = useState("");
+  const [confirmName, setConfirmName] = useState("");
+  const [confirmed, setConfirmed] = useState([]);
+
+  const handleAddMessage = () => {
+    if (name && message) {
+      setGuests([...guests, { name, message }]);
+      setName("");
+      setMessage("");
+    }
+  };
+
+  const handleConfirm = () => {
+    if (confirmName) {
+      setConfirmed([...confirmed, confirmName]);
+      setConfirmName("");
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-yellow-50 to-white text-gray-800 p-4">
+      <div className="max-w-3xl mx-auto text-center">
+        <h1 className="text-4xl font-serif text-gold-700 mb-4">To‘yga Taklifnomamiz</h1>
+        <p className="text-lg">Aziz do‘stlar va yaqinlar, sizni hayotimizdagi eng muhim kunimizga taklif qilamiz!</p>
+
+        <div className="my-8">
+          <h2 className="text-2xl font-bold">👰 Parizoda & 🤵 Alisher</h2>
+          <p className="text-lg mt-2">📅 10-iyul, 2025 | 🕕 Soat 18:00</p>
+          <p className="text-lg">📍 "Navro'z" to'yxonasi, Toshkent, Yakkasaroy</p>
+        </div>
+
+        <div className="mb-8">
+          <h3 className="text-xl font-semibold">🗓 To‘y Dasturi</h3>
+          <ul className="text-left mt-2 space-y-1">
+            <li>18:00 - Mehmonlarni kutib olish</li>
+            <li>18:30 - Nikoh marosimi</li>
+            <li>19:30 - Tantanali kechki ovqat</li>
+            <li>21:00 - Raqs va ko‘ngilochar dasturlar</li>
+          </ul>
+        </div>
+
+        <div className="mb-8">
+          <h3 className="text-xl font-semibold">📦 Sovg‘alar uchun</h3>
+          <p className="mt-2">Kartaga to‘g‘ridan-to‘g‘ri o'tkazish uchun:</p>
+          <p><strong>Humo:</strong> 9860 1234 5678 9012</p>
+        </div>
+
+        <div className="mb-8">
+          <h3 className="text-xl font-semibold">📍 Manzil va Yo‘nalish</h3>
+          <iframe
+            src="https://www.google.com/maps/embed?..."
+            className="w-full h-64 border rounded-xl"
+            loading="lazy"
+          ></iframe>
+        </div>
+
+        <div className="mb-8">
+          <h3 className="text-xl font-semibold">✅ To‘yda qatnashishingizni tasdiqlang</h3>
+          <div className="flex items-center gap-2 mt-2">
+            <Input
+              placeholder="Ismingiz"
+              value={confirmName}
+              onChange={(e) => setConfirmName(e.target.value)}
+            />
+            <Button onClick={handleConfirm}>Tasdiqlash</Button>
+          </div>
+          <ul className="mt-4">
+            {confirmed.map((name, i) => (
+              <li key={i}>✅ {name}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="mb-8">
+          <h3 className="text-xl font-semibold">💌 Tabriklar kitobi</h3>
+          <div className="mt-2">
+            <Input
+              placeholder="Ismingiz"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="mb-2"
+            />
+            <Textarea
+              placeholder="Tabrik yozing..."
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              className="mb-2"
+            />
+            <Button onClick={handleAddMessage}>Yuborish</Button>
+          </div>
+          <div className="mt-4 space-y-2">
+            {guests.map((g, i) => (
+              <Card key={i}>
+                <CardContent className="p-2">
+                  <p className="font-semibold">{g.name}</p>
+                  <p>{g.message}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-12">
+          <h3 className="text-2xl font-bold">⏳ Qolgan vaqt:</h3>
+          {/* Countdown ni qo‘shish mumkin */}
+          <p className="text-xl mt-2">(Countdown component bu yerga joylanadi)</p>
+        </div>
+      </div>
+    </div>
+  );
+};
